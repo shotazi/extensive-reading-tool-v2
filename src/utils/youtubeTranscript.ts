@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export async function getTranscript(videoId: string): Promise<string> {
   try {
-    const response = await axios.get(`/api/transcript/${videoId}`);
+    const response = await axios.get(`/api/transcript?videoId=${videoId}`);
 
 
     return response.data.transcript;
