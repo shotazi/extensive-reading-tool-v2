@@ -15,12 +15,17 @@
     "@vercel/node": "^3.0.24",
     "axios": "^1.6.7",
     "clsx": "^2.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
     "jszip": "^3.10.1",
     "lucide-react": "^0.344.0",
     "pdfjs-dist": "^4.0.379",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.2.1",
+    "winston": "^3.16.0",
     "youtube-transcript": "^1.0.6"
   },
   "devDependencies": {
