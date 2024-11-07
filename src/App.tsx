@@ -5,10 +5,11 @@ import { WordModal } from './components/WordModal';
 import { FileUpload } from './components/FileUpload';
 import { YoutubeImport } from './components/YoutubeImport';
 import { analyzeText } from './utils/textAnalysis';
-import { WordGroup, WordData } from './types';
+import { WordGroup, WordData, Language } from './types';
 import { Plus } from 'lucide-react';
 
 export default function App() {
+  const [language, setLanguage] = useState<Language>('en');
   const [text, setText] = useState('');
   const [wordGroups, setWordGroups] = useState<WordGroup[]>([]);
   const [wordData, setWordData] = useState<Map<string, WordData>>(new Map());
@@ -17,7 +18,7 @@ export default function App() {
 
   const handleTextChange = (newText: string) => {
     setText(newText);
-    const { wordGroups: newGroups, wordData: newData } = analyzeText(newText);
+    const { wordGroups: newGroups, wordData: newData } = analyzeText(newText, language);
     setWordGroups(newGroups);
     setWordData(newData);
     setShowFileUpload(false);
@@ -46,13 +47,24 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Text Analysis Tool
-          </h1>
-          <p className="text-gray-600">
-            Analyze vocabulary and create flashcards
-          </p>
+        <header className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Text Analysis Tool
+            </h1>
+            <p className="text-gray-600">
+              Analyze vocabulary and create flashcards
+            </p>
+          </div>
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value as Language)}
+            className="px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="en">English</option>
+            <option value="de">German</option>
+            <option value="ru">Russian</option>
+          </select>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

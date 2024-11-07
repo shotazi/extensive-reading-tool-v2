@@ -42,7 +42,7 @@ export function TextEditor({
     if (!words.length) return null;
 
     return words.map((word, index) => {
-      const cleanWord = word.toLowerCase().replace(/[^a-z]/g, '');
+      const cleanWord = word.toLowerCase().replace(/[^\p{L}]/gu, '');
       const data = wordData.get(cleanWord);
 
       if (data && selectedGroups.has(data.groupId)) {

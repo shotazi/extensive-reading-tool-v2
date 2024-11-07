@@ -1,4 +1,13 @@
 import { WordFrequencyEn } from '../data/en';
+import { WordFrequencyDe } from '../data/de';
+import { WordFrequencyRu } from '../data/ru';
+import { Language } from '../types';
+
+const wordFrequencyData = {
+  en: WordFrequencyEn,
+  de: WordFrequencyDe,
+  ru: WordFrequencyRu,
+};
 
 export const frequencyGroups = [
   { id: 't1', name: 'Top 1000', color: '#FFFFFF' },
@@ -56,14 +65,14 @@ export const frequencyColor = {
 export function findExamplesInText(word: string, text: string): string[] {
   const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
   const examples = sentences
-    .filter((sentence) => new RegExp(`\\b${word}\\b`, 'i').test(sentence))
+    .filter((sentence) => new RegExp(`${word}`, 'iu').test(sentence))
     .map((sentence) => sentence.trim());
 
   return examples;
 }
 
-export function analyzeText(text: string) {
-  const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+export function analyzeText(text: string, language: Language = 'en') {
+  const words = text.toLowerCase().match(/[\p{L}]+/gu) || [];
   const uniqueWords = new Set(words);
 
   console.log('text from analyze text', text);
@@ -77,7 +86,7 @@ export function analyzeText(text: string) {
   const wordData = new Map();
 
   uniqueWords.forEach((word) => {
-    const groupId = WordFrequencyEn.get(word) || 'rest';
+    const groupId = wordFrequencyData[language].get(word) || 'rest';
     const group = wordGroups.find((g) => g.id === groupId);
     if (group) {
       group.words.add(word);

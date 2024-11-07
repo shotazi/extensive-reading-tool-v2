@@ -12,6 +12,8 @@ export interface WordData {
   examples: string[];
 }
 
+export type Language = 'en' | 'de' | 'ru';
+
 export interface Flashcard {
   word: string;
   examples: string[];
