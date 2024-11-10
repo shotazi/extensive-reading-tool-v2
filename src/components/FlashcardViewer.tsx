@@ -88,7 +88,25 @@ export function FlashcardViewer({ deckId, onClose }: FlashcardViewerProps) {
             }}
           >
             {!isFlipped ? (
+              <div className='flex flex-col justify-center items-center'>
               <div className="text-xl font-bold">{currentCard.front}</div>
+              {currentCard.examples && currentCard.examples.length > 0 && (
+                <div className="mt-6 max-h-24 overflow-y-scroll">
+                  {currentCard.examples.slice(0, 1).map((example, index) => (
+                    <p
+                      key={index}
+                      className="p-3 bg-gray-50 rounded-lg text-gray-700"
+                      dangerouslySetInnerHTML={{
+                        __html: example.replace(
+                          new RegExp(`(${currentCard.front})`, 'gi'),
+                          '<strong>$1</strong>'
+                        )
+                      }}
+                    />
+                  ))}
+                  </div>
+                )}
+              </div>
             ) : (
               <div
                 className="prose prose-base max-w-none w-full overflow-y-auto max-h-[400px]"
@@ -100,23 +118,7 @@ export function FlashcardViewer({ deckId, onClose }: FlashcardViewerProps) {
             )}
           </div>
 
-          {currentCard.examples && currentCard.examples.length > 0 && (
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold mb-2">
-                Examples from text:
-              </h3>
-              <ul className="space-y-2">
-                {currentCard.examples.slice(0, 1).map((example, index) => (
-                  <li
-                    key={index}
-                    className="p-3 bg-gray-50 rounded-lg text-gray-700"
-                  >
-                    {example}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+
 
           <div className="mt-6 flex justify-between items-center">
             <button
