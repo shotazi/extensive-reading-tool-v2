@@ -64,8 +64,8 @@ export function FlashcardViewer({ deckId, onClose }: FlashcardViewerProps) {
   console.log('current card', currentCard);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-3xl w-full">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-1">
+      <div className="bg-white h-[95vh] sm:h-auto rounded-lg shadow-xl max-w-3xl w-full">
         <div className="flex items-center justify-between p-4 border-b">
           <h2 className="text-xl font-semibold">
             Flashcard {currentIndex + 1}/{flashcards.length}
@@ -77,9 +77,9 @@ export function FlashcardViewer({ deckId, onClose }: FlashcardViewerProps) {
             <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="p-8">
+        <div className="p-2 h-[85vh] sm:h-full sm:p-8">
           <div
-            className="h-[400px] flex items-center justify-center p-8 rounded-lg border cursor-pointer transition-all duration-300 transform hover:shadow-lg"
+            className="h-[75vh] sm:h-[500px] flex items-center justify-center p-4 sm:p-8 rounded-lg border cursor-pointer transition-all duration-300 transform hover:shadow-lg"
             onClick={() => setIsFlipped(!isFlipped)}
             style={{
               perspective: '1000px',
@@ -91,7 +91,7 @@ export function FlashcardViewer({ deckId, onClose }: FlashcardViewerProps) {
               <div className='flex flex-col justify-center items-center'>
               <div className="text-xl font-bold">{currentCard.front}</div>
               {currentCard.examples && currentCard.examples.length > 0 && (
-                <div className="mt-6 max-h-24 overflow-y-scroll">
+                <div className="mt-6 max-h-full sm:max-h-24 overflow-y-scroll">
                   {currentCard.examples.slice(0, 1).map((example, index) => (
                     <p
                       key={index}
@@ -109,7 +109,7 @@ export function FlashcardViewer({ deckId, onClose }: FlashcardViewerProps) {
               </div>
             ) : (
               <div
-                className="prose prose-base max-w-none w-full overflow-y-auto max-h-[400px]"
+                className="prose prose-base max-w-none w-full overflow-y-auto max-h-[70vh] sm:max-h-[500px]"
                 style={{
                   transform: 'rotateY(180deg)',
                 }}
@@ -127,7 +127,6 @@ export function FlashcardViewer({ deckId, onClose }: FlashcardViewerProps) {
               className="flex items-center gap-2 px-4 py-2 rounded bg-gray-100 hover:bg-gray-200 disabled:opacity-50 transition-colors duration-200"
             >
               <ChevronLeft className="w-4 h-4" />
-              Previous
             </button>
             <div className="flex gap-2">
               <button
@@ -154,7 +153,6 @@ export function FlashcardViewer({ deckId, onClose }: FlashcardViewerProps) {
               disabled={currentIndex === flashcards.length - 1}
               className="flex items-center gap-2 px-4 py-2 rounded bg-gray-100 hover:bg-gray-200 disabled:opacity-50 transition-colors duration-200"
             >
-              Next
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>

@@ -104,7 +104,7 @@ export function Sidebar({
   const handleGroupSelect = (groupId: string) => {
     const newSelected = new Set(selectedGroups);
     const group = wordGroups.find((g) => g.id === groupId);
-    let newWords = new Set(selectedWords);
+    const newWords = new Set(selectedWords);
 
     if (!group) return;
 
@@ -178,9 +178,9 @@ export function Sidebar({
 
     for (let i = 0; i < selectedWordsArray.length; i++) {
       const word = selectedWordsArray[i];
-      setGenerationProgress(prev => 
-        prev.map(item => 
-          item.word === word 
+      setGenerationProgress(prev =>
+        prev.map(item =>
+          item.word === word
             ? { ...item, status: 'processing' }
             : item
         )
@@ -191,18 +191,18 @@ export function Sidebar({
         const context = text.slice(0, 300);
         const definition = await generateDefinition(word, context, examples);
         await saveFlashcard(deckId, word, definition, examples);
-        
-        setGenerationProgress(prev => 
-          prev.map(item => 
-            item.word === word 
+
+        setGenerationProgress(prev =>
+          prev.map(item =>
+            item.word === word
               ? { ...item, status: 'completed' }
               : item
           )
         );
       } catch (error) {
-        setGenerationProgress(prev => 
-          prev.map(item => 
-            item.word === word 
+        setGenerationProgress(prev =>
+          prev.map(item =>
+            item.word === word
               ? { ...item, status: 'error', error: error.message }
               : item
           )
@@ -393,12 +393,6 @@ export function Sidebar({
                     </div>
                   ))}
                 </div>
-                {selectedDeck && (
-                  <FlashcardViewer
-                    deckId={selectedDeck}
-                    onClose={() => setSelectedDeck(null)}
-                  />
-                )}
               </>
             )}
           </div>
@@ -410,6 +404,13 @@ export function Sidebar({
           onClose={() => setShowCreateModal(false)}
           onSubmit={handleCreateDeck}
           defaultName={generateDefaultDeckName()}
+        />
+      )}
+
+      {selectedDeck && (
+        <FlashcardViewer
+          deckId={selectedDeck}
+          onClose={() => setSelectedDeck(null)}
         />
       )}
     </div>
